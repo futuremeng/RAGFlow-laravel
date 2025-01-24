@@ -1,9 +1,13 @@
 {
-    "name": "openai-php/laravel",
-    "description": "OpenAI PHP for Laravel is a supercharged PHP API client that allows you to interact with the Open AI API",
-    "keywords": ["laravel","php", "openai", "sdk", "codex", "GPT-3", "DALL-E", "api", "client", "natural", "language", "processing"],
+    "name": "futuremeng/ragflow-laravel",
+    "description": "RAGFlow PHP for Laravel is a supercharged PHP API client that allows you to interact with the RAGFlow API",
+    "keywords": ["laravel","php", "ragflow", "sdk", "codex", "GPT-3", "DALL-E", "api", "client", "natural", "language", "processing"],
     "license": "MIT",
     "authors": [
+        {
+            "name": "Future Meng",
+            "email": "futuremeng@gmail.com"
+        },
         {
             "name": "Nuno Maduro",
             "email": "enunomaduro@gmail.com"
@@ -13,7 +17,7 @@
         "php": "^8.1.0",
         "guzzlehttp/guzzle": "^7.9.2",
         "laravel/framework": "^9.46.0|^10.34.2|^11.29.0",
-        "openai-php/client": "^0.10.2"
+        "futuremeng/ragflow-php-client": "^0.2"
     },
     "require-dev": {
         "laravel/pint": "^1.18.1",
@@ -24,7 +28,7 @@
     },
     "autoload": {
         "psr-4": {
-            "OpenAI\\Laravel\\": "src/"
+            "RAGFlow\\Laravel\\": "src/"
         }
     },
     "autoload-dev": {
@@ -45,7 +49,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "OpenAI\\Laravel\\ServiceProvider"
+                "RAGFlow\\Laravel\\ServiceProvider"
             ]
         }
     },

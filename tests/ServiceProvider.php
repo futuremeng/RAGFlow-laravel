@@ -1,16 +1,16 @@
 <?php
 
 use Illuminate\Config\Repository;
-use OpenAI\Client;
-use OpenAI\Contracts\ClientContract;
-use OpenAI\Laravel\Exceptions\ApiKeyIsMissing;
-use OpenAI\Laravel\ServiceProvider;
+use RAGFlow\Client;
+use RAGFlow\Contracts\ClientContract;
+use RAGFlow\Laravel\Exceptions\ApiKeyIsMissing;
+use RAGFlow\Laravel\ServiceProvider;
 
 it('binds the client on the container', function () {
     $app = app();
 
     $app->bind('config', fn () => new Repository([
-        'openai' => [
+        'ragflow' => [
             'api_key' => 'test',
         ],
     ]));
@@ -24,7 +24,7 @@ it('binds the client on the container as singleton', function () {
     $app = app();
 
     $app->bind('config', fn () => new Repository([
-        'openai' => [
+        'ragflow' => [
             'api_key' => 'test',
         ],
     ]));
@@ -44,7 +44,7 @@ it('requires an api key', function () {
     (new ServiceProvider($app))->register();
 })->throws(
     ApiKeyIsMissing::class,
-    'The OpenAI API Key is missing. Please publish the [openai.php] configuration file and set the [api_key].',
+    'The RAGFlow API Key is missing. Please publish the [ragflow.php] configuration file and set the [api_key].',
 );
 
 it('provides', function () {
@@ -55,6 +55,6 @@ it('provides', function () {
     expect($provides)->toBe([
         Client::class,
         ClientContract::class,
-        'openai',
+        'ragflow',
     ]);
 });

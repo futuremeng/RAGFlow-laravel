@@ -1,25 +1,25 @@
 <?php
 
 test('exceptions')
-    ->expect('OpenAI\Laravel\Exceptions')
+    ->expect('RAGFlow\Laravel\Exceptions')
     ->toUseNothing();
 
 test('facades')
-    ->expect('OpenAI\Laravel\Facades\OpenAI')
+    ->expect('RAGFlow\Laravel\Facades\RAGFlow')
     ->toOnlyUse([
         'Illuminate\Support\Facades\Facade',
-        'OpenAI\Contracts\ResponseContract',
-        'OpenAI\Laravel\Testing\OpenAIFake',
-        'OpenAI\Responses\StreamResponse',
+        'RAGFlow\Contracts\ResponseContract',
+        'RAGFlow\Laravel\Testing\RAGFlowFake',
+        'RAGFlow\Responses\StreamResponse',
     ]);
 
 test('service providers')
-    ->expect('OpenAI\Laravel\ServiceProvider')
+    ->expect('RAGFlow\Laravel\ServiceProvider')
     ->toOnlyUse([
         'GuzzleHttp\Client',
         'Illuminate\Support\ServiceProvider',
-        'OpenAI\Laravel',
-        'OpenAI',
+        'RAGFlow\Laravel',
+        'RAGFlow',
         'Illuminate\Contracts\Support\DeferrableProvider',
 
         // helpers...

@@ -1,16 +1,25 @@
 <?php
+/*
+ * @Author: FutureMeng futuremeng@gmail.com
+ * @Date: 2025-01-24 16:33:12
+ * @LastEditors: FutureMeng futuremeng@gmail.com
+ * @LastEditTime: 2025-01-24 16:52:18
+ * @FilePath: /RAGFlow-laravel/src/ServiceProvider.php
+ * @Description:
+ *
+ */
 
-declare(strict_types=1);
+declare (strict_types = 1);
 
-namespace OpenAI\Laravel;
+namespace RAGFlow\Laravel;
 
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
-use OpenAI;
-use OpenAI\Client;
-use OpenAI\Contracts\ClientContract;
-use OpenAI\Laravel\Commands\InstallCommand;
-use OpenAI\Laravel\Exceptions\ApiKeyIsMissing;
+use RAGFlow;
+use RAGFlow\Client;
+use RAGFlow\Contracts\ClientContract;
+use RAGFlow\Laravel\Commands\InstallCommand;
+use RAGFlow\Laravel\Exceptions\ApiKeyIsMissing;
 
 /**
  * @internal
@@ -23,22 +32,20 @@ final class ServiceProvider extends BaseServiceProvider implements DeferrablePro
     public function register(): void
     {
         $this->app->singleton(ClientContract::class, static function (): Client {
-            $apiKey = config('openai.api_key');
-            $organization = config('openai.organization');
+            $apiKey      = config('ragflow.api_key');
+            $apiEndpoint = config('ragflow.api_endpoint');
 
-            if (! is_string($apiKey) || ($organization !== null && ! is_string($organization))) {
+            if (! is_string($apiKey) || ! is_string($apiEndpoint)) {
                 throw ApiKeyIsMissing::create();
             }
 
-            return OpenAI::factory()
+            return RAGFlow::factory()
                 ->withApiKey($apiKey)
-                ->withOrganization($organization)
-                ->withHttpHeader('OpenAI-Beta', 'assistants=v2')
-                ->withHttpClient(new \GuzzleHttp\Client(['timeout' => config('openai.request_timeout', 30)]))
+                ->withHttpClient(new \GuzzleHttp\Client(['timeout' => config('ragflow.request_timeout', 30)]))
                 ->make();
         });
 
-        $this->app->alias(ClientContract::class, 'openai');
+        $this->app->alias(ClientContract::class, 'ragflow');
         $this->app->alias(ClientContract::class, Client::class);
     }
 
@@ -49,7 +56,7 @@ final class ServiceProvider extends BaseServiceProvider implements DeferrablePro
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../config/openai.php' => config_path('openai.php'),
+                __DIR__ . '/../config/ragflow.php' => config_path('ragflow.php'),
             ]);
 
             $this->commands([
@@ -68,7 +75,7 @@ final class ServiceProvider extends BaseServiceProvider implements DeferrablePro
         return [
             Client::class,
             ClientContract::class,
-            'openai',
+            'ragflow',
         ];
     }
 }
