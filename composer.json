@@ -16,7 +16,7 @@
     "require": {
         "php": "^8.1.0",
         "guzzlehttp/guzzle": "^7.9.2",
-        "laravel/framework": "^9.46.0|^10.34.2|^11.29.0",
+        "laravel/framework": "^9.46.0|^10.34.2|^11.29.0|^12.0.0",
         "futuremeng/ragflow-php-client": "^0.2"
     },
     "require-dev": {
